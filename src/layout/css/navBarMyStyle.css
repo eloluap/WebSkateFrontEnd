@@ -1,0 +1,40 @@
+.navBarNormalContent {
+    color: white!important;
+    font-size: 1.5rem;
+    margin: 0 0.5rem;
+}
+
+.navBarLogo {
+    height: 52px;
+    margin: 0 0.5rem;
+    padding: 0;
+}
+
+.loginButtonHeight {
+    height: 52px;
+}
+
+.navbar-light .navbar-nav .active>.nav-link, .navbar-light .navbar-nav .nav-link.active, .navbar-light .navbar-nav .nav-link.show, .navbar-light .navbar-nav .show>.nav-link {
+    color: white!important;
+}
+
+.navbar-light .navbar-nav .nav-link {
+    color: white!important;
+}
+
+#basic-navbar-nav > div > div > div {
+    background-color: #202225;
+    border-radius: 0;
+}
+
+.dropdown-item {
+    color: white!important;
+}
+
+.dropdown-divider {
+    border-top: 1px solid #0C0C0C;
+}
+
+#root > div > div:nth-child(1) > nav > button {
+    margin-left: auto;
+}

@@ -1,0 +1,38 @@
+@import url('https://fonts.googleapis.com/css2?family=Carter+One&display=swap');
+
+.startPage {
+    height: 50vh;
+    background: url('../images/Cutted Banner.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.bannerHeadline {
+    font-family: 'Carter One', cursive;
+    -webkit-text-stroke: 0.4vw white;
+    font-size: 7vw;
+}
+
+.bannerText {
+    font-family: 'Carter One', cursive;
+    -webkit-text-stroke: 0.1vw white;
+    font-size: 3vw;
+}
+
+.buttonText {
+    font-family: 'Carter One', cursive;
+    color: white;
+    font-size: 2rem;
+}
+
+.buttonKlappe {
+    position: absolute;
+    z-index: 10;
+    left: 10%;
+    top: 10%;
+    width: 80%;
+    height: 75px;
+    border-radius: 15px;
+    border: 0;
+}

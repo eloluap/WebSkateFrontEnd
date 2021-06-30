@@ -1,0 +1,28 @@
+.backgroundPrimary {
+    background-color: #333333;
+}
+
+.backgroundFooter {
+    background-color: #0C0C0C;
+}
+
+.borderAlmostBlack {
+    border-color: #0C0C0C;
+}
+
+.backgroundSecondary {
+    background-color: #2BAE66;
+}
+
+.backgroundModal {
+    background-color: #202225;
+}
+
+.backgroundInput {
+    background-color: #6A6C70;
+}
+
+.modal-header > button > span:nth-child(1) {
+    color: white;
+}
+
