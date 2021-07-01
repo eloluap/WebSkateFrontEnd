@@ -11,7 +11,7 @@ class PublicTopMenu extends Component {
     render() {
         return (
             <div>
-                <Navbar className="backgroundPrimary navbar-dark" expand="lg">
+                <Navbar className="backgroundPrimary navbar-dark navbarMy" expand="lg">
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="m-auto">

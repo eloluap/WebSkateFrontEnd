@@ -6,6 +6,7 @@ import Nav from 'react-bootstrap/Nav';
 import logo from "../layout/images/Logo.png";
 import Button from 'react-bootstrap/Button';
 import NavDropdown from 'react-bootstrap/NavDropdown';
+import LogoutButton from './LogoutButton';
 
 const mapStateToProps = state => {
     return state;
@@ -17,7 +18,7 @@ class PrivateTopMenu extends Component {
 
         return (
             <div>
-                <Navbar className="backgroundPrimary navbar-dark" expand="lg">
+                <Navbar className="backgroundPrimary navbar-dark navbarMy" expand="lg">
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="m-auto">
@@ -33,7 +34,7 @@ class PrivateTopMenu extends Component {
                                 <NavDropdown.Item href="#action/3.2">Kommentare</NavDropdown.Item>
                                 <NavDropdown.Item href="#action/3.3">Rezensionen</NavDropdown.Item>
                                 <NavDropdown.Divider />
-                                <NavDropdown.Item href="#action/3.4">Abmelden</NavDropdown.Item>
+                                <LogoutButton />
                             </NavDropdown>
                         </Nav>
                     </Navbar.Collapse>

@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Carter+One&display=swap');
 
+body {
+    background-color: #333333;
+}
+
 .startPage {
     height: 50vh;
     background: url('../images/Cutted Banner.jpg');

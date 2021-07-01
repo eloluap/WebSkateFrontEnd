@@ -7,7 +7,7 @@ import Spinner from 'react-bootstrap/Spinner';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import * as authentionActions from '../actions/AuthenticationActions';
+import * as authenticationActions from '../actions/AuthenticationActions';
 
 const mapStateToProps = state => {
     return state;
@@ -92,9 +92,9 @@ class UserSessionWidget extends Component {
 }
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-    showLoginDialogAction: authentionActions.getShowLoginDialogAction,
-    hideLoginDialogAction: authentionActions.getHideLoginDialogAction,
-    authenticateUserAction: authentionActions.authenticateUser
+    showLoginDialogAction: authenticationActions.getShowLoginDialogAction,
+    hideLoginDialogAction: authenticationActions.getHideLoginDialogAction,
+    authenticateUserAction: authenticationActions.authenticateUser
 }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserSessionWidget)

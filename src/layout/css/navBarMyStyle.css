@@ -1,11 +1,11 @@
 .navBarNormalContent {
     color: white!important;
     font-size: 1.5rem;
-    margin: 0 0.5rem;
+    margin: 10px 0.5rem;
 }
 
 .navBarLogo {
-    height: 52px;
+    height: 72px;
     margin: 0 0.5rem;
     padding: 0;
 }
@@ -37,4 +37,8 @@
 
 #root > div > div:nth-child(1) > nav > button {
     margin-left: auto;
+}
+
+.navbarMy {
+    padding: 0;
 }

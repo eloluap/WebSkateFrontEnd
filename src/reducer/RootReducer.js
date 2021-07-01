@@ -1,4 +1,4 @@
-import * as authentionActions from '../actions/AuthenticationActions';
+import * as authenticationActions from '../actions/AuthenticationActions';
 
 const initialState = {
     user: null,
@@ -11,25 +11,25 @@ function rootReducer(state = initialState, action) {
     console.log("RootReducer: " + action.type);
 
     switch (action.type) {
-        case authentionActions.SHOW_LOGIN_DIALOG:
+        case authenticationActions.SHOW_LOGIN_DIALOG:
             return {
                 ...state,
                 showLoginDialog: true,
                 error: null
             };
-        case authentionActions.HIDE_LOGIN_DIALOG:
+        case authenticationActions.HIDE_LOGIN_DIALOG:
             return {
                 ...state,
                 showLoginDialog: false,
                 error: null
             };
-        case authentionActions.AUTHENTICATION_PENDING:
+        case authenticationActions.AUTHENTICATION_PENDING:
             return {
                 ...state,
                 loginPending: true,
                 error: null
             };
-        case authentionActions.AUTHENTICATION_SUCCESS:
+        case authenticationActions.AUTHENTICATION_SUCCESS:
             return {
                 ...state,
                 showLoginDialog: false,
@@ -37,11 +37,17 @@ function rootReducer(state = initialState, action) {
                 user: action.user,
                 accessToken: action.accessToken
             };
-        case authentionActions.AUTHENTICATION_ERROR:
+        case authenticationActions.AUTHENTICATION_ERROR:
             return {
                 ...state,
                 loginPending: false,
                 error: 'Authentication failed'
+            };
+        case authenticationActions.LOGOUT_USER:
+            return {
+                ...state,
+                user: null,
+                accessToken: null
             };
         default:
             return state;

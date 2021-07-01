@@ -5,6 +5,8 @@ export const AUTHENTICATION_PENDING = 'AUTHENTICATION_PENDING';
 export const AUTHENTICATION_SUCCESS = 'AUTHENTICATION_SUCCESS';
 export const AUTHENTICATION_ERROR = 'AUTHENTICATION_ERROR';
 
+export const LOGOUT_USER = 'LOGOUT_USER';
+
 export function getShowLoginDialogAction() {
     return {
         type: SHOW_LOGIN_DIALOG
@@ -86,7 +88,7 @@ function handleResponse(response) {
 
         if (!response.ok) {
             if (response.status === 401) {
-                logout();
+                return getLogoutAction();
             }
             const error = (data && data.message) || response.statusText;
             return Promise.reject(error);
@@ -100,6 +102,10 @@ function handleResponse(response) {
     });
 }
 
-function logout() {
-    console.error("Should logout user");
+export function getLogoutAction() {
+    console.log("Should logout user");
+
+    return {
+        type: LOGOUT_USER
+    }
 }
