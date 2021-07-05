@@ -42,3 +42,12 @@
 .navbarMy {
     padding: 0;
 }
+
+.navbar-toggler {
+    border: 0;
+}
+
+#basic-navbar-nav > div > a.navBarLogo.nav-link {
+    background-color: #2BAE66;
+    margin: 0;
+}

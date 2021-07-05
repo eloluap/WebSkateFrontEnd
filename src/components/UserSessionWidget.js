@@ -79,7 +79,7 @@ class UserSessionWidget extends Component {
                                 {!this.props.loginPending && "Submit"}
                                 {this.props.loginPending && <Spinner animation="border" className="spinner-border-sm" variant="primary" />}
                             </Button>
-                            {this.props.error && <Form.Label style={{ color: "red", marginTop: "0.5rem" }}>Falscher Nutzername oder Passwort</Form.Label>}
+                            {this.props.error && <Form.Label style={{ color: "red", marginTop: "0.5rem" }}>{/* Falscher Nutzername oder Passwort */}{this.props.error}</Form.Label>}
                         </Form>
                     </Modal.Body>
                     <Modal.Footer className="backgroundPrimary border-0">

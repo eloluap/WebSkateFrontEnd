@@ -92,7 +92,7 @@ class RegistrationWidget extends Component {
                                 {!this.props.registrationPending && "Submit"}
                                 {this.props.registrationPending && <Spinner animation="border" className="spinner-border-sm" variant="primary" />}
                             </Button>
-                            {this.props.error && <Form.Label style={{ color: "red", marginTop: "0.5rem" }}>Bitte anderen Nutzernamen/Email wählen</Form.Label>}
+                            {this.props.error && <Form.Label style={{ color: "red", marginTop: "0.5rem" }}>{/* Bitte anderen Nutzernamen/Email wählen */}{this.props.error}</Form.Label>}
                         </Form>
                     </Modal.Body>
                 </Modal>

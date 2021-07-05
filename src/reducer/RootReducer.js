@@ -44,7 +44,7 @@ function rootReducer(state = initialState, action) {
             return {
                 ...state,
                 loginPending: false,
-                error: 'Authentication failed'
+                error: action.error
             };
         case authenticationActions.LOGOUT_USER:
             return {
@@ -87,7 +87,7 @@ function rootReducer(state = initialState, action) {
             return {
                 ...state,
                 registrationPending: false,
-                error: 'Registration failed'
+                error: action.error
             };
         default:
             return state;

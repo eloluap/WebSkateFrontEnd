@@ -76,14 +76,13 @@ function login(userID, password) {
     };
 
     return fetch('https://localhost:8080/authenticate/loginBasic', requestOptions)
-        .then(handleResponse)
+        .then(handleLoginResponse)
         .then(userSession => {
             return userSession;
         });
 }
 
-function handleResponse(response) {
-    console.log(response);
+function handleLoginResponse(response) {
     const authorizationHeader = response.headers.get('Authorization');
 
     return response.text().then(text => {
@@ -96,9 +95,14 @@ function handleResponse(response) {
         }
 
         if (!response.ok) {
-            const error = (data && data.message) || response.statusText;
+            const error = "Falscher Nutzername oder Passwort.";
             return Promise.reject(error);
         } else {
+            const validated = data.validated;
+            if (!validated) {
+                const error = "Account wurde noch nicht bestätigt.";
+                return Promise.reject(error);
+            }
             let userSession = {
                 user: data,
                 accessToken: token
@@ -182,5 +186,15 @@ function registrate(email, userID, password) {
     };
 
     return fetch('https://localhost:8080/registration/', requestOptions)
-        .then(handleResponse);
+        .then(handleRegistrationResponse);
+}
+
+function handleRegistrationResponse(response) {
+    return response.text().then(text => {
+        const data = text && JSON.parse(text);
+        if (!response.ok) {
+            const error = (data && data.message) || response.statusText;
+            return Promise.reject(error);
+        }
+    });
 }
