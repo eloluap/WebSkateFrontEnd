@@ -5,6 +5,14 @@ export const AUTHENTICATION_PENDING = 'AUTHENTICATION_PENDING';
 export const AUTHENTICATION_SUCCESS = 'AUTHENTICATION_SUCCESS';
 export const AUTHENTICATION_ERROR = 'AUTHENTICATION_ERROR';
 
+export const SHOW_REGISTRATION_DIALOG = 'SHOW_REGISTRATION_DIALOG';
+export const HIDE_REGISTRATION_DIALOG = 'HIDE_REGISTRATION_DIALOG';
+export const HIDE_EMAILSENT_DIALOG = 'HIDE_EMAILSENT_DIALOG';
+
+export const REGISTRATION_PENDING = 'REGISTRATION_PENDING';
+export const REGISTRATION_SUCCESS = 'REGISTRATION_SUCCESS';
+export const REGISTRATION_ERROR = 'REGISTRATION_ERROR';
+
 export const LOGOUT_USER = 'LOGOUT_USER';
 
 export function getShowLoginDialogAction() {
@@ -75,6 +83,7 @@ function login(userID, password) {
 }
 
 function handleResponse(response) {
+    console.log(response);
     const authorizationHeader = response.headers.get('Authorization');
 
     return response.text().then(text => {
@@ -87,9 +96,6 @@ function handleResponse(response) {
         }
 
         if (!response.ok) {
-            if (response.status === 401) {
-                return getLogoutAction();
-            }
             const error = (data && data.message) || response.statusText;
             return Promise.reject(error);
         } else {
@@ -97,6 +103,7 @@ function handleResponse(response) {
                 user: data,
                 accessToken: token
             }
+            console.log(userSession);
             return userSession;
         }
     });
@@ -108,4 +115,72 @@ export function getLogoutAction() {
     return {
         type: LOGOUT_USER
     }
+}
+
+export function getShowRegistrationDialogAction() {
+    return {
+        type: SHOW_REGISTRATION_DIALOG
+    }
+}
+
+export function getHideRegistrationDialogAction() {
+    return {
+        type: HIDE_REGISTRATION_DIALOG
+    }
+}
+
+export function getHideEmailSentDialogAction() {
+    return {
+        type: HIDE_EMAILSENT_DIALOG
+    }
+}
+
+export function getRegistrationPendingAction() {
+    return {
+        type: REGISTRATION_PENDING
+    }
+}
+
+export function getRegistrationSuccessAction() {
+    return {
+        type: REGISTRATION_SUCCESS
+    }
+}
+
+export function getRegistrationErrorAction(error) {
+    return {
+        type: REGISTRATION_ERROR,
+        error: error
+    }
+}
+
+export function registrateUser(email, userID, password) {
+    console.log("Registrate");
+
+    return dispatch => {
+        dispatch(getRegistrationPendingAction());
+        registrate(email, userID, password)
+            .then(
+                () => {
+                    dispatch(getRegistrationSuccessAction());
+                },
+                error => {
+                    dispatch(getRegistrationErrorAction(error));
+                }
+            )
+            .catch(error => {
+                dispatch(getRegistrationErrorAction(error));
+            });
+    }
+}
+
+function registrate(email, userID, password) {
+    const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': "application/json" },
+        body: JSON.stringify({ user: { email, userID, password } })
+    };
+
+    return fetch('https://localhost:8080/registration/', requestOptions)
+        .then(handleResponse);
 }

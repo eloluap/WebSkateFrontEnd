@@ -3,7 +3,10 @@ import * as authenticationActions from '../actions/AuthenticationActions';
 const initialState = {
     user: null,
     loginPending: false,
+    registrationPending: false,
     showLoginDialog: false,
+    showRegistrationDialog: false,
+    showEmailSentDialog: false,
     error: null
 };
 
@@ -48,6 +51,43 @@ function rootReducer(state = initialState, action) {
                 ...state,
                 user: null,
                 accessToken: null
+            };
+        case authenticationActions.SHOW_REGISTRATION_DIALOG:
+            return {
+                ...state,
+                showRegistrationDialog: true,
+                error: null
+            };
+        case authenticationActions.HIDE_REGISTRATION_DIALOG:
+            return {
+                ...state,
+                showRegistrationDialog: false,
+                error: null
+            };
+        case authenticationActions.HIDE_EMAILSENT_DIALOG:
+            return {
+                ...state,
+                showEmailSentDialog: false,
+                error: null
+            };
+        case authenticationActions.REGISTRATION_PENDING:
+            return {
+                ...state,
+                registrationPending: true,
+                error: null
+            };
+        case authenticationActions.REGISTRATION_SUCCESS:
+            return {
+                ...state,
+                showRegistrationDialog: false,
+                registrationPending: false,
+                showEmailSentDialog: true
+            };
+        case authenticationActions.REGISTRATION_ERROR:
+            return {
+                ...state,
+                registrationPending: false,
+                error: 'Registration failed'
             };
         default:
             return state;

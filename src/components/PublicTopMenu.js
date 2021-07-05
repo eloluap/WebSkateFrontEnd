@@ -1,11 +1,12 @@
 import React, { Component } from "react";
 
 import UserSessionWidget from './UserSessionWidget';
+import RegistrationWidget from './RegistrationWidget';
 
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import logo from "../layout/images/Logo.png";
-import Button from 'react-bootstrap/Button';
+/* import Button from 'react-bootstrap/Button'; */
 
 class PublicTopMenu extends Component {
     render() {
@@ -20,9 +21,10 @@ class PublicTopMenu extends Component {
                             <Nav.Link href="#link" className="navBarNormalContent">Skateparks</Nav.Link>
                             <Nav.Link href="#link" className="navBarNormalContent">Forum</Nav.Link>
                             <UserSessionWidget />
-                            <Button className="navBarNormalContent backgroundSecondary border-0" variant="primary">
+                            <RegistrationWidget />
+                            {/* <Button className="navBarNormalContent backgroundSecondary border-0" variant="primary">
                                 Registrieren
-                            </Button>
+                            </Button> */}
                         </Nav>
                     </Navbar.Collapse>
                 </Navbar>
