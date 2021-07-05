@@ -20,7 +20,7 @@ class LogoutButton extends Component {
     render() {
         return (
             <div>
-                <NavDropdown.Item href="#action/3.4" onClick={this.handleLogout}>Abmelden</NavDropdown.Item>
+                <NavDropdown.Item href="#" onClick={this.handleLogout}>Abmelden</NavDropdown.Item>
             </div>
         )
     }

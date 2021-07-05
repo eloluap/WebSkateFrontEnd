@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux';
+import { Switch, Route } from 'react-router-dom';
 import StartPage from './StartPage';
 
 const mapStateToProps = state => {
@@ -8,11 +9,11 @@ const mapStateToProps = state => {
 
 class Content extends Component {
     render() {
-
-        let activeContent = <StartPage />;
         return (
             <div>
-                {activeContent}
+                <Switch>
+                    <Route path="/" component={StartPage} exact />
+                </Switch>
             </div>
         )
     }

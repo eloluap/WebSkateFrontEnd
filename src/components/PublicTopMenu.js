@@ -3,10 +3,10 @@ import React, { Component } from "react";
 import UserSessionWidget from './UserSessionWidget';
 import RegistrationWidget from './RegistrationWidget';
 
+import { LinkContainer } from 'react-router-bootstrap'
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import logo from "../layout/images/Logo.png";
-/* import Button from 'react-bootstrap/Button'; */
 
 class PublicTopMenu extends Component {
     render() {
@@ -16,15 +16,14 @@ class PublicTopMenu extends Component {
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="m-auto">
-                            <Nav.Link href="#home" className="navBarLogo"><img src={logo} className="navBarLogo" alt="Logo" /></Nav.Link>
+                            <LinkContainer to="/">
+                                <Nav.Link className="navBarLogo"><img src={logo} className="navBarLogo" alt="Logo" /></Nav.Link>
+                            </LinkContainer>
                             <Nav.Link href="#home" className="navBarNormalContent">Lernen</Nav.Link>
                             <Nav.Link href="#link" className="navBarNormalContent">Skateparks</Nav.Link>
                             <Nav.Link href="#link" className="navBarNormalContent">Forum</Nav.Link>
                             <UserSessionWidget />
                             <RegistrationWidget />
-                            {/* <Button className="navBarNormalContent backgroundSecondary border-0" variant="primary">
-                                Registrieren
-                            </Button> */}
                         </Nav>
                     </Navbar.Collapse>
                 </Navbar>
