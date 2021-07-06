@@ -13,12 +13,13 @@ import reportWebVitals from './reportWebVitals';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import './layout/css/colors.css';
 import './layout/css/startPage.css';
+import './layout/css/forumPage.css';
 import './layout/css/navBarMyStyle.css';
 
 import rootReducer from './reducer/RootReducer';
 
 const initialState = {
-
+    posts: []
 }
 
 const middlewares = [thunk];

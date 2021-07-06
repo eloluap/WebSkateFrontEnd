@@ -1,4 +1,5 @@
 import * as authenticationActions from '../actions/AuthenticationActions';
+import * as postActions from '../actions/PostActions';
 
 const initialState = {
     user: null,
@@ -7,7 +8,8 @@ const initialState = {
     showLoginDialog: false,
     showRegistrationDialog: false,
     showEmailSentDialog: false,
-    error: null
+    error: null,
+    loadPostsPending: false
 };
 
 function rootReducer(state = initialState, action) {
@@ -87,6 +89,24 @@ function rootReducer(state = initialState, action) {
             return {
                 ...state,
                 registrationPending: false,
+                error: action.error
+            };
+        case postActions.LOADPOSTS_PENDING:
+            return {
+                ...state,
+                loadPostsPending: true,
+                error: null
+            };
+        case postActions.LOADPOSTS_SUCCESS:
+            return {
+                ...state,
+                loadPostsPending: false,
+                posts: action.posts
+            };
+        case postActions.LOADPOSTS_ERROR:
+            return {
+                ...state,
+                loadPostsPending: false,
                 error: action.error
             };
         default:
