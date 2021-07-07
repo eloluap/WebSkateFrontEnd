@@ -28,7 +28,9 @@ class PrivateTopMenu extends Component {
                             </LinkContainer>
                             <Nav.Link href="#home" className="navBarNormalContent">Lernen</Nav.Link>
                             <Nav.Link href="#link" className="navBarNormalContent">Skateparks</Nav.Link>
-                            <Nav.Link href="#link" className="navBarNormalContent">Forum</Nav.Link>
+                            <LinkContainer to="/Forum">
+                                <Nav.Link className="navBarNormalContent">Forum</Nav.Link>
+                            </LinkContainer>
                             <Button className="navBarNormalContent backgroundSecondary border-0" variant="primary">
                                 Nachrichten
                             </Button>

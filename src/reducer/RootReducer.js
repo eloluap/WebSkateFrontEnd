@@ -3,13 +3,15 @@ import * as postActions from '../actions/PostActions';
 
 const initialState = {
     user: null,
+    accessToken: null,
     loginPending: false,
     registrationPending: false,
     showLoginDialog: false,
     showRegistrationDialog: false,
     showEmailSentDialog: false,
     error: null,
-    loadPostsPending: false
+    loadPostsPending: false,
+    createPostPending: false
 };
 
 function rootReducer(state = initialState, action) {
@@ -107,6 +109,23 @@ function rootReducer(state = initialState, action) {
             return {
                 ...state,
                 loadPostsPending: false,
+                error: action.error
+            };
+        case postActions.CREATEPOST_PENDING:
+            return {
+                ...state,
+                createPostPending: true,
+                error: null
+            };
+        case postActions.CREATEPOST_SUCCESS:
+            return {
+                ...state,
+                createPostPending: false
+            };
+        case postActions.CREATEPOST_ERROR:
+            return {
+                ...state,
+                createPostPending: false,
                 error: action.error
             };
         default:

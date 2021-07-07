@@ -51,3 +51,8 @@
     background-color: #2BAE66;
     margin: 0;
 }
+
+.footerFiller {
+    min-height: 24px;
+    max-height: 24px;
+}

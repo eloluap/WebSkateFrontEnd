@@ -7,7 +7,7 @@
 }
 
 .borderAlmostBlack {
-    border-color: #0C0C0C;
+    border-color: #0C0C0C!important;
 }
 
 .backgroundSecondary {
@@ -22,7 +22,18 @@
     background-color: #6A6C70;
 }
 
+.form-control::placeholder {
+    color: #A9A9A9;
+}
+
+.form-control {
+    color: white;
+}
+
 .modal-header > button > span:nth-child(1) {
     color: white;
 }
 
+.textWhite {
+    color: white;
+}

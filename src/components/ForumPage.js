@@ -6,6 +6,7 @@ import Spinner from 'react-bootstrap/Spinner';
 import * as postActions from '../actions/PostActions';
 
 import ForumPostSmall from './ForumPostSmall';
+import CreatePost from './CreatePost';
 
 const mapStateToProps = state => {
     return state;
@@ -26,9 +27,13 @@ class ForumPage extends Component {
 
         return (
             <div>
-                {/* Insert Banner here */}
-                {/* <CreatePost /> */}
-                {this.props.loadPostsPending && <Spinner animation="border" className="spinner-border-sm" variant="primary" />}
+                <div className="bannerForumPage">
+                    <div className="bannerHeadline">
+                        Forum
+                    </div>
+                </div>
+                {this.props.user && <CreatePost />}
+                {this.props.loadPostsPending && <div className="textWhite"><Spinner animation="border" className="spinner-border-sm mr-2" variant="primary" />Loading Posts...</div>}
                 {postList}
             </div>
         )

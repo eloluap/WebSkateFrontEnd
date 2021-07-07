@@ -44,7 +44,7 @@ class UserSessionWidget extends Component {
         const { username, password } = this.state;
         const { authenticateUserAction } = this.props;
         authenticateUserAction(username, password);
-        console.log("Submitted");
+        console.log("Submitted Login");
     }
 
     render() {
@@ -76,10 +76,10 @@ class UserSessionWidget extends Component {
                                 <Form.Control type="password" className="backgroundInput borderAlmostBlack rounded-0" placeholder="Passwort" name="password" onChange={this.handleChange} />
                             </Form.Group>
                             <Button className="w-100 backgroundSecondary border-0 rounded-0" variant="primary" type="submit" onClick={this.handleSubmit}>
-                                {!this.props.loginPending && "Submit"}
+                                {!this.props.loginPending && "Anmelden"}
                                 {this.props.loginPending && <Spinner animation="border" className="spinner-border-sm" variant="primary" />}
                             </Button>
-                            {this.props.error && <Form.Label style={{ color: "red", marginTop: "0.5rem" }}>{/* Falscher Nutzername oder Passwort */}{this.props.error}</Form.Label>}
+                            {this.props.error && <Form.Label style={{ color: "red", marginTop: "0.5rem" }}>{this.props.error}</Form.Label>}
                         </Form>
                     </Modal.Body>
                     <Modal.Footer className="backgroundPrimary border-0">

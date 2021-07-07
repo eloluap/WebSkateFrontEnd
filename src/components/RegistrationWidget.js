@@ -50,7 +50,7 @@ class RegistrationWidget extends Component {
         const { email, username, password } = this.state;
         const { registrateUserAction } = this.props;
         registrateUserAction(email, username, password);
-        console.log("Submitted");
+        console.log("Submitted Registration");
     }
 
     render() {
@@ -89,7 +89,7 @@ class RegistrationWidget extends Component {
                                 <Form.Control type="password" className="backgroundInput borderAlmostBlack rounded-0" placeholder="Passwort" name="password" onChange={this.handleChange} />
                             </Form.Group>
                             <Button className="w-100 backgroundSecondary border-0 rounded-0" variant="primary" type="submit" onClick={this.handleSubmit}>
-                                {!this.props.registrationPending && "Submit"}
+                                {!this.props.registrationPending && "Registrieren"}
                                 {this.props.registrationPending && <Spinner animation="border" className="spinner-border-sm" variant="primary" />}
                             </Button>
                             {this.props.error && <Form.Label style={{ color: "red", marginTop: "0.5rem" }}>{/* Bitte anderen Nutzernamen/Email wählen */}{this.props.error}</Form.Label>}
