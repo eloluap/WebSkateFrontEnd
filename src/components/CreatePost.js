@@ -40,30 +40,32 @@ class CreatePost extends Component {
 
     render() {
         return (
-            <div className="smallPost borderAlmostBlack textWhite">
-                <Form name="createPostForm">
-                    <div className="createPost">
-                        <div className="createPostCreate textSize48">
-                            Beitrag erstellen
+            <div className="smallPostWrapper">
+                <div className="smallPost borderAlmostBlack textWhite">
+                    <Form name="createPostForm">
+                        <div className="createPost">
+                            <div className="createPostCreate textSize48">
+                                Beitrag erstellen
+                            </div>
+                            <div className="createPostTitel w-100 h-100">
+                                <Form.Group controlId="formBasicEmail" className="w-100 h-100 m-0">
+                                    <Form.Control type="text" className="backgroundInput textColorInput textSize36 borderAlmostBlack rounded-0 w-100 h-100" placeholder="Titel" name="titel" onChange={this.handleChange} />
+                                </Form.Group>
+                            </div>
+                            <div className="createPostContent w-100 h-100">
+                                <Form.Group controlId="formBasicEmail" className="w-100 h-100 m-0">
+                                    <Form.Control as="textarea" className="backgroundInput textColorInput borderAlmostBlack rounded-0 w-100 h-100" placeholder="Text" name="contentField" onChange={this.handleChange} />
+                                </Form.Group>
+                            </div>
+                            <div className="createPostButton w-100 h-100">
+                                <Button className="w-100 h-100 backgroundSecondary border-0 rounded-0" variant="primary" type="submit" onClick={this.handleSubmit}>
+                                    {!this.props.loginPending && <div className="textSize48">Erstellen</div>}
+                                    {this.props.loginPending && <Spinner animation="border" className="spinner-border-sm" variant="primary" />}
+                                </Button>
+                            </div>
                         </div>
-                        <div className="createPostTitel w-100 h-100">
-                            <Form.Group controlId="formBasicEmail" className="w-100 h-100 m-0">
-                                <Form.Control type="text" className="backgroundInput textColorInput textSize36 borderAlmostBlack rounded-0 w-100 h-100" placeholder="Titel" name="titel" onChange={this.handleChange} />
-                            </Form.Group>
-                        </div>
-                        <div className="createPostContent w-100 h-100">
-                            <Form.Group controlId="formBasicEmail" className="w-100 h-100 m-0">
-                                <Form.Control as="textarea" className="backgroundInput textColorInput borderAlmostBlack rounded-0 w-100 h-100" placeholder="Text" name="contentField" onChange={this.handleChange} />
-                            </Form.Group>
-                        </div>
-                        <div className="createPostButton w-100 h-100">
-                            <Button className="w-100 h-100 backgroundSecondary border-0 rounded-0" variant="primary" type="submit" onClick={this.handleSubmit}>
-                                {!this.props.loginPending && <div className="textSize48">Erstellen</div>}
-                                {this.props.loginPending && <Spinner animation="border" className="spinner-border-sm" variant="primary" />}
-                            </Button>
-                        </div>
-                    </div>
-                </Form>
+                    </Form>
+                </div>
             </div>
         )
     }

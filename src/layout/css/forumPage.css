@@ -6,9 +6,12 @@
     background-position: center;
 }
 
-.smallPost {
+.smallPostWrapper {
     width: 80%;
     margin: 1% 10%;
+}
+
+.smallPost {
     padding: 0.75%;
     border: 2px solid;
 }
@@ -56,4 +59,8 @@
 .von {
     display: inline;
     color: #A9A9A9;
+}
+
+.App > div:nth-child(2) > div:nth-child(1) > div a:hover {
+    text-decoration: none;
 }

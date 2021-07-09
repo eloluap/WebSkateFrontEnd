@@ -21,7 +21,7 @@ class ForumPage extends Component {
 
     render() {
         var postList = this.props.posts.map(x => {
-            return <ForumPostSmall name={x.userID} titel={x.titel} content={x.content} />;
+            return <ForumPostSmall postID={x.postID} name={x.userName} titel={x.titel} content={x.content} />;
         });
 
 

@@ -11,7 +11,9 @@ const initialState = {
     showEmailSentDialog: false,
     error: null,
     loadPostsPending: false,
-    createPostPending: false
+    createPostPending: false,
+    loadPostPending: false,
+    loadCommentsPending: false
 };
 
 function rootReducer(state = initialState, action) {
@@ -127,6 +129,50 @@ function rootReducer(state = initialState, action) {
                 ...state,
                 createPostPending: false,
                 error: action.error
+            };
+        case postActions.LOADPOST_PENDING:
+            return {
+                ...state,
+                loadPostPending: true,
+                error: null
+            };
+        case postActions.LOADPOST_SUCCESS:
+            return {
+                ...state,
+                loadPostPending: false,
+                activePost: action.post
+            };
+        case postActions.LOADPOST_ERROR:
+            return {
+                ...state,
+                loadPostPending: false,
+                error: action.error
+            };
+        case postActions.LOADCOMMENTS_PENDING:
+            return {
+                ...state,
+                loadCommentsPending: true,
+                error: null
+            };
+        case postActions.LOADCOMMENTS_SUCCESS:
+            return {
+                ...state,
+                loadCommentsPending: false,
+                comments: action.comments
+            };
+        case postActions.LOADCOMMENTS_ERROR:
+            return {
+                ...state,
+                loadCommentsPending: false,
+                error: action.error
+            };
+        case postActions.CLEAR_ACTIVE_POST:
+            return {
+                ...state,
+                loadCommentsPending: false,
+                error: null,
+                activePost: null,
+                comments: []
             };
         default:
             return state;

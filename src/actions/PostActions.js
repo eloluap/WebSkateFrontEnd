@@ -6,6 +6,16 @@ export const CREATEPOST_PENDING = 'CREATEPOST_PENDING';
 export const CREATEPOST_SUCCESS = 'CREATEPOST_SUCCESS';
 export const CREATEPOST_ERROR = 'CREATEPOST_ERROR';
 
+export const LOADPOST_PENDING = 'LOADPOST_PENDING';
+export const LOADPOST_SUCCESS = 'LOADPOST_SUCCESS';
+export const LOADPOST_ERROR = 'LOADPOST_ERROR';
+
+export const LOADCOMMENTS_PENDING = 'LOADCOMMENTS_PENDING';
+export const LOADCOMMENTS_SUCCESS = 'LOADCOMMENTS_SUCCESS';
+export const LOADCOMMENTS_ERROR = 'LOADCOMMENTS_ERROR';
+
+export const CLEAR_ACTIVE_POST = 'CLEAR_ACTIVE_POST';
+
 export function getLoadPostsPendingAction() {
     return {
         type: LOADPOSTS_PENDING
@@ -132,4 +142,79 @@ function handleCreatePostResponse(response) {
             return Promise.reject(error);
         }
     });
+}
+
+export function getLoadPostPendingAction() {
+    return {
+        type: LOADPOST_PENDING
+    }
+}
+
+export function getLoadPostSuccessAction(post) {
+    return {
+        type: LOADPOST_SUCCESS,
+        post: post
+    }
+}
+
+export function getLoadPostErrorAction(error) {
+    return {
+        type: LOADPOST_ERROR,
+        error: error
+    }
+}
+
+export function getPost(postID) {
+    console.log("Get Post");
+
+    return dispatch => {
+        dispatch(getLoadPostPendingAction());
+        loadPost(postID)
+            .then(
+                post => {
+                    dispatch(getLoadPostSuccessAction(post));
+                },
+                error => {
+                    dispatch(getLoadPostErrorAction(error));
+                }
+            )
+            .catch(error => {
+                dispatch(getLoadPostErrorAction(error));
+            });
+    }
+}
+
+function loadPost(postID) {
+    const url = 'https://localhost:8080/forum/' + postID;
+    const requestOptions = {
+        method: 'GET'
+    };
+
+    return fetch(url, requestOptions)
+        .then(handleLoadPostResponse)
+        .then(post => {
+            return post;
+        });
+}
+
+function handleLoadPostResponse(response) {
+    return response.text().then(text => {
+        const data = text && JSON.parse(text);
+        if (!response.ok) {
+            const error = (data && data.message) || response.statusText;
+            return Promise.reject(error);
+        } else {
+            return data;
+        }
+    });
+}
+
+export function getCommentList() {
+
+}
+
+export function clearActivePost() {
+    return {
+        type: CLEAR_ACTIVE_POST
+    }
 }

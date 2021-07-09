@@ -20,7 +20,9 @@ import './layout/css/navBarMyStyle.css';
 import rootReducer from './reducer/RootReducer';
 
 const initialState = {
-    posts: []
+    posts: [],
+    comments: [],
+    activePost: null
 }
 
 const middlewares = [thunk];
