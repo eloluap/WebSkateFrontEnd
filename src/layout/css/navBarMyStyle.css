@@ -56,3 +56,24 @@
     min-height: 24px;
     max-height: 24px;
 }
+
+.btn-primary:hover, .btn-primary:focus {
+    background-color: #187240!important;
+    box-shadow: none!important;
+}
+
+.text-primary {
+    color: white!important;
+}
+
+.form-control:focus {
+    box-shadow: none!important;
+}
+
+.dropdown-item:hover {
+    background-color: #187240!important;
+}
+
+.dropdown-item.active {
+    background-color: #202225!important;
+}

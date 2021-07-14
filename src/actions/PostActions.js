@@ -14,6 +14,10 @@ export const LOADCOMMENTS_PENDING = 'LOADCOMMENTS_PENDING';
 export const LOADCOMMENTS_SUCCESS = 'LOADCOMMENTS_SUCCESS';
 export const LOADCOMMENTS_ERROR = 'LOADCOMMENTS_ERROR';
 
+export const CREATECOMMENT_PENDING = 'CREATECOMMENT_PENDING';
+export const CREATECOMMENT_SUCCESS = 'CREATECOMMENT_SUCCESS';
+export const CREATECOMMENT_ERROR = 'CREATECOMMENT_ERROR';
+
 export const CLEAR_ACTIVE_POST = 'CLEAR_ACTIVE_POST';
 
 export function getLoadPostsPendingAction() {
@@ -209,8 +213,134 @@ function handleLoadPostResponse(response) {
     });
 }
 
-export function getCommentList() {
+export function getLoadCommentsPendingAction() {
+    return {
+        type: LOADCOMMENTS_PENDING
+    }
+}
 
+export function getLoadCommentsSuccessAction(commentList) {
+    return {
+        type: LOADCOMMENTS_SUCCESS,
+        comments: commentList
+    }
+}
+
+export function getLoadCommentsErrorAction(error) {
+    return {
+        type: LOADCOMMENTS_ERROR,
+        error: error
+    }
+}
+
+export function getCommentList(postID) {
+    console.log("Get Comment List");
+
+    return dispatch => {
+        dispatch(getLoadCommentsPendingAction());
+        loadComments(postID)
+            .then(
+                commentList => {
+                    dispatch(getLoadCommentsSuccessAction(commentList));
+                },
+                error => {
+                    dispatch(getLoadCommentsErrorAction(error));
+                }
+            )
+            .catch(error => {
+                dispatch(getLoadCommentsErrorAction(error));
+            });
+    }
+}
+
+function loadComments(postID) {
+    const url = 'https://localhost:8080/comment/forum/' + postID;
+    const requestOptions = {
+        method: 'GET'
+    };
+
+    return fetch(url, requestOptions)
+        .then(handleLoadCommentsResponse)
+        .then(commentList => {
+            return commentList;
+        });
+}
+
+function handleLoadCommentsResponse(response) {
+    return response.text().then(text => {
+        const data = text && JSON.parse(text);
+        if (!response.ok) {
+            const error = (data && data.message) || response.statusText;
+            return Promise.reject(error);
+        } else {
+            return data.reverse();
+        }
+    });
+}
+
+export function getCreateCommentPendingAction() {
+    return {
+        type: CREATECOMMENT_PENDING
+    }
+}
+
+export function getCreateCommentSuccessAction() {
+    return {
+        type: CREATECOMMENT_SUCCESS
+    }
+}
+
+export function getCreateCommentErrorAction(error) {
+    return {
+        type: CREATECOMMENT_ERROR,
+        error: error
+    }
+}
+
+export function createCommentAction(postID, content, token) {
+    console.log("Create comment");
+
+    return dispatch => {
+        dispatch(getCreateCommentPendingAction());
+        createComment(postID, content, token)
+            .then(
+                () => {
+                    dispatch(getCreateCommentSuccessAction());
+                    dispatch(getCommentList(postID));
+                },
+                error => {
+                    dispatch(getCreateCommentErrorAction(error));
+                }
+            )
+            .catch(error => {
+                dispatch(getCreateCommentErrorAction(error));
+            });
+    }
+}
+
+function createComment(postID, content, token) {
+    const url = 'https://localhost:8080/comment/forum/' + postID;
+    const requestOptions = {
+        method: 'POST',
+        headers: {
+            'Authorization': "Bearer " + token,
+            'Content-Type': "application/json"
+        },
+        body: JSON.stringify({ comment: { postID: postID, content: content } })
+    };
+
+    return fetch(url, requestOptions)
+        .then(handleCreateCommentResponse)
+}
+
+function handleCreateCommentResponse(response) {
+    return response.text().then(text => {
+        const data = text && JSON.parse(text);
+        if (!response.ok) {
+            const error = (data && data.message) || response.statusText;
+            return Promise.reject(error);
+        }
+    });
 }
 
 export function clearActivePost() {

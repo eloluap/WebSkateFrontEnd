@@ -16,13 +16,30 @@
     border: 2px solid;
 }
 
+.normalPost {
+    padding: 0% 1%;
+}
+
+.smallComment {
+    width: 98%;
+    margin: 1% 1%;
+    padding: 0.25rem 0.5rem;
+    border: 2px solid;
+}
+
+.trenner {
+    border: 1px solid;
+    width: 98%;
+}
+
 .createPost {
     display: grid;
-    grid-template-columns: 28% 55% 15%;
-    grid-template-rows: 50% 50%;
+    grid-template-columns: 33% 45% 20%;
+    grid-template-rows: 50% 50% 0%;
     grid-template-areas: 
         "create contentField button"
-        "titel contentField button";
+        "titel contentField button"
+        "error error error";
     column-gap: 1%;
 }
 
@@ -40,6 +57,37 @@
 
 .createPostButton {
     grid-area: button;
+}
+
+.createPostError {
+    grid-area: error;
+}
+
+.createCommentWrapper {
+    width: 98%;
+    margin: 1% 1%;
+}
+
+.createComment {
+    display: grid;
+    grid-template-columns: 80% 19%;
+    grid-template-rows: 100%;
+    grid-template-areas: 
+        "contentField button"
+        "error error";
+    column-gap: 1%;
+}
+
+.createCommentContent {
+    grid-area: contentField;    
+}
+
+.createCommentButton {
+    grid-area: button;
+}
+
+.createCommentError {
+    grid-area: error;
 }
 
 .overflowOneLine {
@@ -63,4 +111,64 @@
 
 .App > div:nth-child(2) > div:nth-child(1) > div a:hover {
     text-decoration: none;
+}
+
+@media only screen and (max-width: 991px) {
+    .createPost {
+        display: grid;
+        grid-template-columns: 40% 59%;
+        grid-template-rows: 36% 35% 25%; 
+        grid-template-areas: 
+            "create contentField"
+            "titel contentField"
+            "button button"
+            "error error";
+        column-gap: 1%;
+        row-gap: 2%;
+        padding-bottom: 1%;
+    }
+
+    .createComment {
+        display: grid;
+        grid-template-columns: 74% 25%;
+        grid-template-rows: 100%;
+        grid-template-areas: 
+            "contentField button"
+            "error error";
+        column-gap: 1%;
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    .createPost {
+        display: grid;
+        grid-template-columns: 100%;
+        grid-template-rows: 25% 25% 50%; 
+        grid-template-areas: 
+            "create"
+            "titel"
+            "contentField"
+            "button"
+            "error";
+        column-gap: 1%;
+        row-gap: 2%;
+        padding-bottom: 5%;
+    }
+
+    .createComment {
+        display: grid;
+        grid-template-columns: 100%;
+        grid-template-rows: 100%;
+        grid-template-areas: 
+            "contentField"
+            "button"
+            "error";
+        column-gap: 1%;
+        row-gap: 2%;
+    }
+
+    .smallPostWrapper {
+        width: 90%;
+        margin: 1% 5%;
+    }
 }

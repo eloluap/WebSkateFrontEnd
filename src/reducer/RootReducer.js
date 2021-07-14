@@ -13,7 +13,8 @@ const initialState = {
     loadPostsPending: false,
     createPostPending: false,
     loadPostPending: false,
-    loadCommentsPending: false
+    loadCommentsPending: false,
+    createCommentPending: false
 };
 
 function rootReducer(state = initialState, action) {
@@ -164,6 +165,23 @@ function rootReducer(state = initialState, action) {
             return {
                 ...state,
                 loadCommentsPending: false,
+                error: action.error
+            };
+        case postActions.CREATECOMMENT_PENDING:
+            return {
+                ...state,
+                createCommentPending: true,
+                error: null
+            };
+        case postActions.CREATECOMMENT_SUCCESS:
+            return {
+                ...state,
+                createCommentPending: false
+            };
+        case postActions.CREATECOMMENT_ERROR:
+            return {
+                ...state,
+                createCommentPending: false,
                 error: action.error
             };
         case postActions.CLEAR_ACTIVE_POST:

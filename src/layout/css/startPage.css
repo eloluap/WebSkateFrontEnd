@@ -28,6 +28,7 @@ body {
     font-family: 'Carter One', cursive;
     color: white;
     font-size: 2rem;
+    line-height: 2;
 }
 
 .buttonKlappe {
@@ -39,4 +40,36 @@ body {
     height: 75px;
     border-radius: 15px;
     border: 0;
+}
+
+.btn-primary:not(:disabled):not(.disabled):active {
+    background-color: #2BAE66;
+}
+
+@media only screen and (max-width: 991px) {
+    .bannerHeadline {
+        font-size: 10vw;
+    }
+
+    .bannerText {
+        font-size: 5vw;
+    }
+
+    .startPage {
+        height: 42vh;
+    }
+}
+
+@media only screen and (max-width: 575px) {
+    .bannerHeadline {
+        font-size: 14vw;
+    }
+
+    .bannerText {
+        font-size: 6vw;
+    }
+
+    .startPage {
+        height: 35vh;
+    }
 }

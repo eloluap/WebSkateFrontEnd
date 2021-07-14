@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import lernen from "../layout/images/Lernen.png";
 import skateparks from "../layout/images/Skateparks.png";
 import forum from "../layout/images/Forum.png";
+import { LinkContainer } from 'react-router-bootstrap'
 import Button from 'react-bootstrap/Button';
 
 class StartPage extends Component {
@@ -31,7 +32,9 @@ class StartPage extends Component {
                     </div>
                     <div className="col-md-4 p-3">
                         <img src={forum} className="img-fluid" alt="Klappe Forum" />
-                        <Button className="buttonKlappe buttonText backgroundSecondary">Forum</Button>
+                        <LinkContainer to="/Forum">
+                            <Button className="buttonKlappe buttonText backgroundSecondary">Forum</Button>
+                        </LinkContainer>
                     </div>
                 </div>
             </div>

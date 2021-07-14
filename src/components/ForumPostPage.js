@@ -6,6 +6,7 @@ import Spinner from 'react-bootstrap/Spinner';
 import * as postActions from '../actions/PostActions';
 
 import Comment from './Comment';
+import CreateComment from './CreateComment';
 
 const mapStateToProps = state => {
     return state;
@@ -16,7 +17,7 @@ class ForumPostPage extends Component {
     componentDidMount() {
         const { getPost, getCommentList } = this.props;
         getPost(this.props.match.params.postID);
-        /* getCommentList(); */
+        getCommentList(this.props.match.params.postID);
     }
 
     componentWillUnmount() {
@@ -25,33 +26,63 @@ class ForumPostPage extends Component {
     }
 
     render() {
-        /* var commentList = this.props.comments.map(x => {
-            return <Comment postID={x.postID} name={x.userName} titel={x.titel} content={x.content} />;
-        }); */
+        var commentList = this.props.comments.map(x => {
+            return <Comment name={x.userName} titel={x.titel} content={x.content} />;
+        });
 
         var activePost = this.props.activePost;
         var post = null;
         if (activePost === null) {
             post = <div></div>;
         } else {
-            post = <div className="smallPostWrapper">
-                <div className="smallPost borderAlmostBlack textWhite">
-                    <div className="text-left textSize36 overflowOneLine">
+            if (commentList.length === 0 && this.props.user == null) {
+                post = <div className="normalPost">
+                    <div className="text-left textSize36">
                         <div className="textColorInput von">von </div>{activePost.userName}
                     </div>
-                    <div className="text-left textSize48 overflowOneLine">
+                    <div className="text-left textSize48">
                         {activePost.titel}
                     </div>
-                    <div className="text-left textSize24 overflowTwoLines">
+                    <div className="text-left textSize24">
                         {activePost.content}
                     </div>
-                </div>
-            </div>
+                </div>;
+            } else {
+                post = <div className="normalPost mb-3">
+                    <div className="text-left textSize36">
+                        <div className="textColorInput von">von </div>{activePost.userName}
+                    </div>
+                    <div className="text-left textSize48">
+                        {activePost.titel}
+                    </div>
+                    <div className="text-left textSize24">
+                        {activePost.content}
+                    </div>
+                </div>;
+            }
+        }
+
+        var trennerComments;
+        if (commentList.length !== 0) {
+            trennerComments = <hr className="trenner borderAlmostBlack" />;
         }
 
         return (
             <div>
-                {post}
+                <div className="bannerForumPage">
+                    <div className="bannerHeadline">
+                        Forum
+                    </div>
+                </div>
+                <div className="smallPostWrapper">
+                    <div className="smallPost borderAlmostBlack textWhite">
+                        {post}
+                        {this.props.user && <hr className="trenner borderAlmostBlack" />}
+                        {this.props.user && <CreateComment />}
+                        {trennerComments}
+                        {commentList}
+                    </div>
+                </div>
             </div>
         )
     }
