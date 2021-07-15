@@ -22,7 +22,8 @@ import rootReducer from './reducer/RootReducer';
 const initialState = {
     posts: [],
     comments: [],
-    activePost: null
+    activePost: null,
+    clickedComment: null
 }
 
 const middlewares = [thunk];

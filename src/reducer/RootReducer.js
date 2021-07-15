@@ -14,7 +14,16 @@ const initialState = {
     createPostPending: false,
     loadPostPending: false,
     loadCommentsPending: false,
-    createCommentPending: false
+    createCommentPending: false,
+    editPostPending: false,
+    showEditPostDialog: false,
+    deletePostPending: false,
+    showDeletePostDialog: false,
+    redirectDelete: false,
+    showDeleteCommentDialog: false,
+    deleteCommentPending: false,
+    showEditCommentDialog: false,
+    editCommentPending: false
 };
 
 function rootReducer(state = initialState, action) {
@@ -100,6 +109,7 @@ function rootReducer(state = initialState, action) {
             return {
                 ...state,
                 loadPostsPending: true,
+                redirectDelete: false,
                 error: null
             };
         case postActions.LOADPOSTS_SUCCESS:
@@ -176,7 +186,8 @@ function rootReducer(state = initialState, action) {
         case postActions.CREATECOMMENT_SUCCESS:
             return {
                 ...state,
-                createCommentPending: false
+                createCommentPending: false,
+                comments: []
             };
         case postActions.CREATECOMMENT_ERROR:
             return {
@@ -191,6 +202,128 @@ function rootReducer(state = initialState, action) {
                 error: null,
                 activePost: null,
                 comments: []
+            };
+        case postActions.SHOW_EDITPOST_DIALOG:
+            return {
+                ...state,
+                showEditPostDialog: true,
+                error: null
+            };
+        case postActions.HIDE_EDITPOST_DIALOG:
+            return {
+                ...state,
+                showEditPostDialog: false,
+                error: null
+            };
+        case postActions.EDITPOST_PENDING:
+            return {
+                ...state,
+                editPostPending: true,
+                error: null
+            };
+        case postActions.EDITPOST_SUCCESS:
+            return {
+                ...state,
+                editPostPending: false
+            };
+        case postActions.EDITPOST_ERROR:
+            return {
+                ...state,
+                editPostPending: false,
+                error: action.error
+            };
+        case postActions.SHOW_DELETEPOST_DIALOG:
+            return {
+                ...state,
+                showDeletePostDialog: true,
+                error: null
+            };
+        case postActions.HIDE_DELETEPOST_DIALOG:
+            return {
+                ...state,
+                showDeletePostDialog: false,
+                error: null
+            };
+        case postActions.DELETEPOST_PENDING:
+            return {
+                ...state,
+                deletePostPending: true,
+                error: null
+            };
+        case postActions.DELETEPOST_SUCCESS:
+            return {
+                ...state,
+                deletePostPending: false,
+                redirectDelete: true
+            };
+        case postActions.DELETEPOST_ERROR:
+            return {
+                ...state,
+                deletePostPending: false,
+                error: action.error
+            };
+        case postActions.SHOW_DELETECOMMENT_DIALOG:
+            return {
+                ...state,
+                showDeleteCommentDialog: true,
+                clickedComment: action.commentID,
+                error: null
+            };
+        case postActions.HIDE_DELETECOMMENT_DIALOG:
+            return {
+                ...state,
+                showDeleteCommentDialog: false,
+                error: null
+            };
+        case postActions.DELETECOMMENT_PENDING:
+            return {
+                ...state,
+                deleteCommentPending: true,
+                error: null
+            };
+        case postActions.DELETECOMMENT_SUCCESS:
+            return {
+                ...state,
+                clickedComment: null,
+                deleteCommentPending: false,
+                comments: []
+            };
+        case postActions.DELETECOMMENT_ERROR:
+            return {
+                ...state,
+                deleteCommentPending: false,
+                error: action.error
+            };
+        case postActions.SHOW_EDITCOMMENT_DIALOG:
+            return {
+                ...state,
+                clickedComment: action.commentID,
+                showEditCommentDialog: true,
+                error: null
+            };
+        case postActions.HIDE_EDITCOMMENT_DIALOG:
+            return {
+                ...state,
+                showEditCommentDialog: false,
+                error: null
+            };
+        case postActions.EDITCOMMENT_PENDING:
+            return {
+                ...state,
+                editCommentPending: true,
+                error: null
+            };
+        case postActions.EDITCOMMENT_SUCCESS:
+            return {
+                ...state,
+                clickedComment: null,
+                editCommentPending: false
+            };
+        case postActions.EDITCOMMENT_ERROR:
+            return {
+                ...state,
+                editCommentPending: false,
+                error: action.error
             };
         default:
             return state;

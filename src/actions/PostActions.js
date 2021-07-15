@@ -18,6 +18,30 @@ export const CREATECOMMENT_PENDING = 'CREATECOMMENT_PENDING';
 export const CREATECOMMENT_SUCCESS = 'CREATECOMMENT_SUCCESS';
 export const CREATECOMMENT_ERROR = 'CREATECOMMENT_ERROR';
 
+export const SHOW_EDITPOST_DIALOG = 'SHOW_EDITPOST_DIALOG';
+export const HIDE_EDITPOST_DIALOG = 'HIDE_EDITPOST_DIALOG';
+export const EDITPOST_PENDING = 'EDITPOST_PENDING';
+export const EDITPOST_SUCCESS = 'EDITPOST_SUCCESS';
+export const EDITPOST_ERROR = 'EDITPOST_ERROR';
+
+export const SHOW_DELETEPOST_DIALOG = 'SHOW_DELETEPOST_DIALOG';
+export const HIDE_DELETEPOST_DIALOG = 'HIDE_DELETEPOST_DIALOG';
+export const DELETEPOST_PENDING = 'DELETEPOST_PENDING';
+export const DELETEPOST_SUCCESS = 'DELETEPOST_SUCCESS';
+export const DELETEPOST_ERROR = 'DELETEPOST_ERROR';
+
+export const SHOW_DELETECOMMENT_DIALOG = 'SHOW_DELETECOMMENT_DIALOG';
+export const HIDE_DELETECOMMENT_DIALOG = 'HIDE_DELETECOMMENT_DIALOG';
+export const DELETECOMMENT_PENDING = 'DELETECOMMENT_PENDING';
+export const DELETECOMMENT_SUCCESS = 'DELETECOMMENT_SUCCESS';
+export const DELETECOMMENT_ERROR = 'DELETECOMMENT_ERROR';
+
+export const SHOW_EDITCOMMENT_DIALOG = 'SHOW_EDITCOMMENT_DIALOG';
+export const HIDE_EDITCOMMENT_DIALOG = 'HIDE_EDITCOMMENT_DIALOG';
+export const EDITCOMMENT_PENDING = 'EDITCOMMENT_PENDING';
+export const EDITCOMMENT_SUCCESS = 'EDITCOMMENT_SUCCESS';
+export const EDITCOMMENT_ERROR = 'EDITCOMMENT_ERROR';
+
 export const CLEAR_ACTIVE_POST = 'CLEAR_ACTIVE_POST';
 
 export function getLoadPostsPendingAction() {
@@ -347,4 +371,314 @@ export function clearActivePost() {
     return {
         type: CLEAR_ACTIVE_POST
     }
+}
+
+export function getShowEditPostDialogAction() {
+    return {
+        type: SHOW_EDITPOST_DIALOG
+    }
+}
+
+export function getHideEditPostDialogAction() {
+    return {
+        type: HIDE_EDITPOST_DIALOG
+    }
+}
+
+export function getEditPostPendingAction() {
+    return {
+        type: EDITPOST_PENDING
+    }
+}
+
+export function getEditPostSuccessAction() {
+    return {
+        type: EDITPOST_SUCCESS
+    }
+}
+
+export function getEditPostErrorAction(error) {
+    return {
+        type: EDITPOST_ERROR,
+        error: error
+    }
+}
+
+export function editPostSelf(postID, titel, content, token) {
+    return dispatch => {
+        dispatch(getEditPostPendingAction());
+        editPost(postID, titel, content, token)
+            .then(
+                () => {
+                    dispatch(getPost(postID));
+                    dispatch(getHideEditPostDialogAction());
+                    dispatch(getEditPostSuccessAction());
+                },
+                error => {
+                    dispatch(getEditPostErrorAction(error));
+                }
+            )
+            .catch(error => {
+                dispatch(getEditPostErrorAction(error));
+            });
+    }
+}
+
+function editPost(postID, titel, content, token) {
+    const url = 'https://localhost:8080/forum/' + postID;
+    const requestOptions = {
+        method: 'PUT',
+        headers: {
+            'Authorization': "Bearer " + token,
+            'Content-Type': "application/json"
+        },
+        body: JSON.stringify({
+            forumPost: {
+                titel: titel,
+                content: content
+            }
+        })
+    };
+
+    return fetch(url, requestOptions)
+        .then(handleEditPostResponse)
+}
+
+function handleEditPostResponse(response) {
+    return response.text().then(text => {
+        const data = text && JSON.parse(text);
+        if (!response.ok) {
+            const error = (data && data.message) || response.statusText;
+            return Promise.reject(error);
+        }
+    });
+}
+
+export function getShowDeletePostDialogAction() {
+    return {
+        type: SHOW_DELETEPOST_DIALOG
+    }
+}
+
+export function getHideDeletePostDialogAction() {
+    return {
+        type: HIDE_DELETEPOST_DIALOG
+    }
+}
+
+export function getDeletePostPendingAction() {
+    return {
+        type: DELETEPOST_PENDING
+    }
+}
+
+export function getDeletePostSuccessAction() {
+    return {
+        type: DELETEPOST_SUCCESS
+    }
+}
+
+export function getDeletePostErrorAction(error) {
+    return {
+        type: DELETEPOST_ERROR,
+        error: error
+    }
+}
+
+export function deletePost(postID, token) {
+    return dispatch => {
+        dispatch(getDeletePostPendingAction());
+        deletePostStep(postID, token)
+            .then(
+                () => {
+                    dispatch(getHideDeletePostDialogAction());
+                    dispatch(getDeletePostSuccessAction());
+                },
+                error => {
+                    dispatch(getDeletePostErrorAction(error));
+                }
+            )
+            .catch(error => {
+                dispatch(getDeletePostErrorAction(error));
+            });
+    }
+}
+
+function deletePostStep(postID, token) {
+    const url = 'https://localhost:8080/forum/' + postID;
+    const requestOptions = {
+        method: 'DELETE',
+        headers: {
+            'Authorization': "Bearer " + token
+        }
+    };
+
+    return fetch(url, requestOptions)
+        .then(handleDeletePostResponse)
+}
+
+function handleDeletePostResponse(response) {
+    return response.text().then(text => {
+        const data = text && JSON.parse(text);
+        if (!response.ok) {
+            const error = (data && data.message) || response.statusText;
+            return Promise.reject(error);
+        }
+    });
+}
+
+export function getShowDeleteCommentDialogAction(commentID) {
+    return {
+        type: SHOW_DELETECOMMENT_DIALOG,
+        commentID: commentID
+    }
+}
+
+export function getHideDeleteCommentDialogAction() {
+    return {
+        type: HIDE_DELETECOMMENT_DIALOG
+    }
+}
+
+export function getDeleteCommentPendingAction() {
+    return {
+        type: DELETECOMMENT_PENDING
+    }
+}
+
+export function getDeleteCommentSuccessAction() {
+    return {
+        type: DELETECOMMENT_SUCCESS
+    }
+}
+
+export function getDeleteCommentErrorAction(error) {
+    return {
+        type: DELETECOMMENT_ERROR,
+        error: error
+    }
+}
+
+export function deleteComment(postID, commentID, token) {
+    return dispatch => {
+        dispatch(getDeleteCommentPendingAction());
+        deleteCommentStep(commentID, token)
+            .then(
+                () => {
+                    dispatch(getHideDeleteCommentDialogAction());
+                    dispatch(getDeleteCommentSuccessAction());
+                    dispatch(getCommentList(postID));
+                },
+                error => {
+                    dispatch(getDeleteCommentErrorAction(error));
+                }
+            )
+            .catch(error => {
+                dispatch(getDeleteCommentErrorAction(error));
+            });
+    }
+}
+
+function deleteCommentStep(commentID, token) {
+    const url = 'https://localhost:8080/comment/' + commentID;
+    const requestOptions = {
+        method: 'DELETE',
+        headers: {
+            'Authorization': "Bearer " + token
+        }
+    };
+
+    return fetch(url, requestOptions)
+        .then(handleDeleteCommentResponse)
+}
+
+function handleDeleteCommentResponse(response) {
+    return response.text().then(text => {
+        const data = text && JSON.parse(text);
+        if (!response.ok) {
+            const error = (data && data.message) || response.statusText;
+            return Promise.reject(error);
+        }
+    });
+}
+
+export function getShowEditCommentDialogAction(commentID) {
+    return {
+        type: SHOW_EDITCOMMENT_DIALOG,
+        commentID: commentID
+    }
+}
+
+export function getHideEditCommentDialogAction() {
+    return {
+        type: HIDE_EDITCOMMENT_DIALOG
+    }
+}
+
+export function getEditCommentPendingAction() {
+    return {
+        type: EDITCOMMENT_PENDING
+    }
+}
+
+export function getEditCommentSuccessAction() {
+    return {
+        type: EDITCOMMENT_SUCCESS
+    }
+}
+
+export function getEditCommentErrorAction(error) {
+    return {
+        type: EDITCOMMENT_ERROR,
+        error: error
+    }
+}
+
+export function editCommentSelf(postID, commentID, content, token) {
+    return dispatch => {
+        dispatch(getEditCommentPendingAction());
+        editComment(commentID, content, token)
+            .then(
+                () => {
+                    dispatch(getHideEditCommentDialogAction());
+                    dispatch(getEditCommentSuccessAction());
+                    dispatch(getCommentList(postID));
+                },
+                error => {
+                    dispatch(getEditCommentErrorAction(error));
+                }
+            )
+            .catch(error => {
+                dispatch(getEditCommentErrorAction(error));
+            });
+    }
+}
+
+function editComment(commentID, content, token) {
+    const url = 'https://localhost:8080/comment/' + commentID;
+    const requestOptions = {
+        method: 'PUT',
+        headers: {
+            'Authorization': "Bearer " + token,
+            'Content-Type': "application/json"
+        },
+        body: JSON.stringify({
+            comment: {
+                content: content
+            }
+        })
+    };
+
+    return fetch(url, requestOptions)
+        .then(handleEditCommentResponse)
+}
+
+function handleEditCommentResponse(response) {
+    return response.text().then(text => {
+        const data = text && JSON.parse(text);
+        if (!response.ok) {
+            const error = (data && data.message) || response.statusText;
+            return Promise.reject(error);
+        }
+    });
 }

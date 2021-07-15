@@ -20,6 +20,58 @@
     padding: 0% 1%;
 }
 
+.iconWrapper {
+    overflow: hidden;
+}
+
+.makePlaceForIcons {
+    width: 90%;
+    float: left;
+}
+
+.iconDiv {
+    width: 10%;
+    overflow: hidden;
+}
+
+.makePlaceForIconsComment {
+    width: 88%;
+    float: left;
+}
+
+.iconDivComment {
+    width: 12%;
+    overflow: hidden;
+}
+
+.buttonDelete {
+    background-color: rgb(230, 90, 90);
+    border: 0;
+    float: right;
+}
+
+#buttonDelete:hover {
+    background-color: rgb(255, 0, 0)!important;
+}
+
+#buttonDelete:active {
+    background-color: rgb(230, 90, 90)!important;
+}
+
+#buttonDelete:focus {
+    background-color: rgb(255, 0, 0)!important;
+}
+
+.buttonEdit {
+    background-color: #2BAE66;
+    border: 0;
+    float: right;
+}
+
+#buttonEdit:hover {
+    background-color: #187240!important;
+}
+
 .smallComment {
     width: 98%;
     margin: 1% 1%;
@@ -137,6 +189,14 @@
             "error error";
         column-gap: 1%;
     }
+
+    .makePlaceForIconsComment {
+        width: 84%;
+    }
+
+    .iconDivComment {
+        width: 16%;
+    }
 }
 
 @media only screen and (max-width: 767px) {
@@ -170,5 +230,21 @@
     .smallPostWrapper {
         width: 90%;
         margin: 1% 5%;
+    }
+
+    .makePlaceForIcons {
+        width: 84%;
+    }
+
+    .iconDiv {
+        width: 16%;
+    }
+
+    .makePlaceForIconsComment {
+        width: 70%;
+    }
+
+    .iconDivComment {
+        width: 30%;
     }
 }
