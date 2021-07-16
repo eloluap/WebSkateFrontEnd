@@ -16,6 +16,12 @@ const mapStateToProps = state => {
 class PrivateTopMenu extends Component {
     render() {
         let userName = this.props.user.userName;
+        let manage;
+        if (this.props.user.role === 'admin') {
+            manage = <LinkContainer to="/Management">
+                <NavDropdown.Item href="#">User Management</NavDropdown.Item>
+            </LinkContainer>;
+        }
 
         return (
             <div>
@@ -39,6 +45,7 @@ class PrivateTopMenu extends Component {
                                 <NavDropdown.Item href="#action/3.2">Kommentare</NavDropdown.Item>
                                 <NavDropdown.Item href="#action/3.3">Rezensionen</NavDropdown.Item>
                                 <NavDropdown.Divider />
+                                {manage}
                                 <LinkContainer to="/Profil">
                                     <NavDropdown.Item href="#">Profil</NavDropdown.Item>
                                 </LinkContainer>

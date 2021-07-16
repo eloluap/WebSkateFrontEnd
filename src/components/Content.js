@@ -5,6 +5,7 @@ import StartPage from './StartPage';
 import ForumPage from './ForumPage';
 import ForumPostPage from './ForumPostPage';
 import ProfilePage from './ProfilePage';
+import UserManagementPage from './UserManagementPage';
 
 const mapStateToProps = state => {
     return state;
@@ -19,6 +20,7 @@ class Content extends Component {
                     <Route path="/Forum" component={ForumPage} exact />
                     <Route path="/Forum/:postID" render={(props) => <ForumPostPage {...props} />} />
                     <Route path="/Profil" component={ProfilePage} exact />
+                    <Route path="/Management" component={UserManagementPage} exact />
                 </Switch>
             </div>
         )

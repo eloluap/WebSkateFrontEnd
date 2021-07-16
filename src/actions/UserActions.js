@@ -10,6 +10,14 @@ export const DELETEPROFILE_PENDING = 'DELETEPROFILE_PENDING';
 export const DELETEPROFILE_SUCCESS = 'DELETEPROFILE_SUCCESS';
 export const DELETEPROFILE_ERROR = 'DELETEPROFILE_ERROR';
 
+export const DELETEUSER_PENDING = 'DELETEUSER_PENDING';
+export const DELETEUSER_SUCCESS = 'DELETEUSER_SUCCESS';
+export const DELETEUSER_ERROR = 'DELETEUSER_ERROR';
+
+export const LOADUSERS_PENDING = 'LOADUSERS_PENDING';
+export const LOADUSERS_SUCCESS = 'LOADUSERS_SUCCESS';
+export const LOADUSERS_ERROR = 'LOADUSERS_ERROR';
+
 export function getShowEditProfileDialogAction() {
     return {
         type: SHOW_EDITPROFILE_DIALOG
@@ -115,9 +123,10 @@ function handleEditProfileResponse(response) {
     });
 }
 
-export function getShowDeleteProfileDialogAction() {
+export function getShowDeleteProfileDialogAction(userID) {
     return {
-        type: SHOW_DELETEPROFILE_DIALOG
+        type: SHOW_DELETEPROFILE_DIALOG,
+        userID: userID
     }
 }
 
@@ -184,6 +193,112 @@ function handleDeleteProfileResponse(response) {
         if (!response.ok) {
             const error = (data && data.message) || response.statusText;
             return Promise.reject(error);
+        }
+    });
+}
+
+export function getDeleteUserPendingAction() {
+    return {
+        type: DELETEUSER_PENDING
+    }
+}
+
+export function getDeleteUserSuccessAction() {
+    return {
+        type: DELETEUSER_SUCCESS
+    }
+}
+
+export function getDeleteUserErrorAction(error) {
+    return {
+        type: DELETEUSER_ERROR,
+        error: error
+    }
+}
+
+export function deleteUser(userID, token) {
+    return dispatch => {
+        dispatch(getDeleteUserPendingAction());
+        deleteProfileStep(userID, token)
+            .then(
+                () => {
+                    dispatch(getHideDeleteProfileDialogAction());
+                    dispatch(getDeleteUserSuccessAction());
+                    dispatch(getUserList(token));
+                },
+                error => {
+                    dispatch(getDeleteUserErrorAction(error));
+                }
+            )
+            .catch(error => {
+                dispatch(getDeleteUserErrorAction(error));
+            });
+    }
+}
+
+export function getLoadUsersPendingAction() {
+    return {
+        type: LOADUSERS_PENDING
+    }
+}
+
+export function getLoadUsersSuccessAction(userList) {
+    return {
+        type: LOADUSERS_SUCCESS,
+        users: userList
+    }
+}
+
+export function getLoadUsersErrorAction(error) {
+    return {
+        type: LOADUSERS_ERROR,
+        error: error
+    }
+}
+
+export function getUserList(token) {
+    console.log("Get User List");
+
+    return dispatch => {
+        dispatch(getLoadUsersPendingAction());
+        loadUsers(token)
+            .then(
+                userList => {
+                    dispatch(getLoadUsersSuccessAction(userList));
+                },
+                error => {
+                    dispatch(getLoadUsersErrorAction(error));
+                }
+            )
+            .catch(error => {
+                dispatch(getLoadUsersErrorAction(error));
+            });
+    }
+}
+
+function loadUsers(token) {
+    const requestOptions = {
+        method: 'GET',
+        headers: {
+            'Authorization': "Bearer " + token
+        }
+    };
+
+    return fetch('https://localhost:8080/users', requestOptions)
+        .then(handleLoadUsersResponse)
+        .then(userList => {
+            return userList;
+        });
+}
+
+function handleLoadUsersResponse(response) {
+    return response.text().then(text => {
+        const data = text && JSON.parse(text);
+        if (!response.ok) {
+            const error = (data && data.message) || response.statusText;
+            return Promise.reject(error);
+        } else {
+            return data;
         }
     });
 }

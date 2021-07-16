@@ -21,13 +21,13 @@ class ProfilePage extends Component {
                     Ihre Daten:
                 </div>
                 <div className="textProfileSize36 textAlignLeft">
-                    E-Mail-Adresse: {this.props.user.email}
+                    E-Mail-Adresse: <div className="dataUser">{this.props.user.email}</div>
                 </div>
                 <div className="textProfileSize36 textAlignLeft">
-                    Ursprünglicher Nutzername: {this.props.user.userID}
+                    Ursprünglicher Nutzername: <div className="dataUser">{this.props.user.userID}</div>
                 </div>
                 <div className="textProfileSize36 textAlignLeft">
-                    Aktueller Nutzername: {this.props.user.userName}
+                    Aktueller Nutzername: <div className="dataUser">{this.props.user.userName}</div>
                 </div>
                 <EditProfileWidget />
                 <DeleteProfileWidget />

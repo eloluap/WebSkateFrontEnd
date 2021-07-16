@@ -24,7 +24,9 @@ const initialState = {
     posts: [],
     comments: [],
     activePost: null,
-    clickedComment: null
+    clickedComment: null,
+    users: [],
+    clickedUser: null
 }
 
 const middlewares = [thunk];

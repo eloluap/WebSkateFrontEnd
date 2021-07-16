@@ -28,7 +28,8 @@ const initialState = {
     showEditProfileDialog: false,
     editProfilePending: false,
     showDeleteProfileDialog: false,
-    deleteProfilePending: false
+    deleteProfilePending: false,
+    loadUsersPending: false
 };
 
 function rootReducer(state = initialState, action) {
@@ -364,6 +365,7 @@ function rootReducer(state = initialState, action) {
             return {
                 ...state,
                 showDeleteProfileDialog: true,
+                clickedUser: action.userID,
                 error: null
             };
         case userActions.HIDE_DELETEPROFILE_DIALOG:
@@ -382,6 +384,7 @@ function rootReducer(state = initialState, action) {
             return {
                 ...state,
                 deleteProfilePending: false,
+                clickedUser: null,
                 user: null,
                 accessToken: null
             };
@@ -389,6 +392,42 @@ function rootReducer(state = initialState, action) {
             return {
                 ...state,
                 deleteProfilePending: false,
+                error: action.error
+            };
+        case userActions.DELETEUSER_PENDING:
+            return {
+                ...state,
+                deleteProfilePending: true,
+                error: null
+            };
+        case userActions.DELETEUSER_SUCCESS:
+            return {
+                ...state,
+                deleteProfilePending: false,
+                clickedUser: null
+            };
+        case userActions.DELETEUSER_ERROR:
+            return {
+                ...state,
+                deleteProfilePending: false,
+                error: action.error
+            };
+        case userActions.LOADUSERS_PENDING:
+            return {
+                ...state,
+                loadUsersPending: true,
+                error: null
+            };
+        case userActions.LOADUSERS_SUCCESS:
+            return {
+                ...state,
+                loadUsersPending: false,
+                users: action.users
+            };
+        case userActions.LOADUSERS_ERROR:
+            return {
+                ...state,
+                loadUsersPending: false,
                 error: action.error
             };
         default:

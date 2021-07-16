@@ -34,8 +34,41 @@
     background-color: rgb(255, 0, 0)!important;
 }
 
+.dataUser {
+    display: inline;
+    color: #bbbbbb;
+}
+
+.makePlaceForIconsUser {
+    width: 90%;
+    float: left;
+}
+
+.iconDivUser {
+    width: 10%;
+    overflow: hidden;
+}
+
+.textSizeManagement36 {
+    font-size: 1.5rem;
+}
+
 @media only screen and (max-width: 575px) {
     .textProfileSize36 {
         font-size: 1rem;
+    }
+
+    .textSizeManagement36 {
+        font-size: 1rem;
+    }
+
+    .makePlaceForIconsUser {
+        width: 85%;
+        float: left;
+    }
+    
+    .iconDivUser {
+        width: 15%;
+        overflow: hidden;
     }
 }
