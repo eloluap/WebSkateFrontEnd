@@ -1,0 +1,24 @@
+.bannerProfilePage {
+    height: 20vh;
+    background: url('../images/Profil.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.yourData {
+    width: fit-content;
+    margin: auto;
+    padding: 0.75%;
+    border: 2px solid;
+}
+
+.textProfileSize36 {
+    font-size: 1.5rem;
+}
+
+@media only screen and (max-width: 575px) {
+    .textProfileSize36 {
+        font-size: 1rem;
+    }
+}

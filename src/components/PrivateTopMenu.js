@@ -39,12 +39,15 @@ class PrivateTopMenu extends Component {
                                 <NavDropdown.Item href="#action/3.2">Kommentare</NavDropdown.Item>
                                 <NavDropdown.Item href="#action/3.3">Rezensionen</NavDropdown.Item>
                                 <NavDropdown.Divider />
+                                <LinkContainer to="/Profil">
+                                    <NavDropdown.Item href="#">Profil</NavDropdown.Item>
+                                </LinkContainer>
                                 <LogoutButton />
                             </NavDropdown>
                         </Nav>
                     </Navbar.Collapse>
                 </Navbar>
-            </div>
+            </div >
         )
     }
 }

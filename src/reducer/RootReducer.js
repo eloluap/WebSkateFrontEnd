@@ -1,5 +1,6 @@
 import * as authenticationActions from '../actions/AuthenticationActions';
 import * as postActions from '../actions/PostActions';
+import * as userActions from '../actions/UserActions';
 
 const initialState = {
     user: null,
@@ -23,7 +24,9 @@ const initialState = {
     showDeleteCommentDialog: false,
     deleteCommentPending: false,
     showEditCommentDialog: false,
-    editCommentPending: false
+    editCommentPending: false,
+    showEditProfileDialog: false,
+    editProfilePending: false
 };
 
 function rootReducer(state = initialState, action) {
@@ -323,6 +326,36 @@ function rootReducer(state = initialState, action) {
             return {
                 ...state,
                 editCommentPending: false,
+                error: action.error
+            };
+        case userActions.SHOW_EDITPROFILE_DIALOG:
+            return {
+                ...state,
+                showEditProfileDialog: true,
+                error: null
+            };
+        case userActions.HIDE_EDITPROFILE_DIALOG:
+            return {
+                ...state,
+                showEditProfileDialog: false,
+                error: null
+            };
+        case userActions.EDITPROFILE_PENDING:
+            return {
+                ...state,
+                editProfilePending: true,
+                error: null
+            };
+        case userActions.EDITPROFILE_SUCCESS:
+            return {
+                ...state,
+                editProfilePending: false,
+                user: action.user
+            };
+        case userActions.EDITPROFILE_ERROR:
+            return {
+                ...state,
+                editProfilePending: false,
                 error: action.error
             };
         default:

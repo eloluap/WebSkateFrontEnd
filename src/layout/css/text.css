@@ -9,3 +9,7 @@
 .textSize48 {
     font-size: 2rem;    
 }
+
+.textAlignLeft {
+    text-align: left;
+}

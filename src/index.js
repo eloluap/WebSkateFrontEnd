@@ -16,6 +16,7 @@ import './layout/css/text.css';
 import './layout/css/startPage.css';
 import './layout/css/forumPage.css';
 import './layout/css/navBarMyStyle.css';
+import './layout/css/profilePage.css';
 
 import rootReducer from './reducer/RootReducer';
 
