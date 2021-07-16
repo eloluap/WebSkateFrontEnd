@@ -17,6 +17,23 @@
     font-size: 1.5rem;
 }
 
+.buttonDeleteModal {
+    background-color: rgb(230, 90, 90);
+    border: 0;
+}
+
+#buttonDeleteModal:hover {
+    background-color: rgb(255, 0, 0)!important;
+}
+
+#buttonDeleteModal:active {
+    background-color: rgb(230, 90, 90)!important;
+}
+
+#buttonDeleteModal:focus {
+    background-color: rgb(255, 0, 0)!important;
+}
+
 @media only screen and (max-width: 575px) {
     .textProfileSize36 {
         font-size: 1rem;

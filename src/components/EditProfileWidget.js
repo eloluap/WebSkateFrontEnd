@@ -82,7 +82,7 @@ class UserSessionWidget extends Component {
 
                 <Modal show={showDialog} onHide={this.handleClose}>
                     <Modal.Header className="backgroundModal border-0" closeButton>
-                        <Modal.Title className="text-white ">Daten bearbeiten</Modal.Title>
+                        <Modal.Title className="text-white ">Account - Daten bearbeiten</Modal.Title>
                     </Modal.Header>
                     <Modal.Body className="backgroundPrimary">
                         <Form>

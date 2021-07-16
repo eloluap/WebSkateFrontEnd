@@ -4,6 +4,12 @@ export const EDITPROFILE_PENDING = 'EDITPROFILE_PENDING';
 export const EDITPROFILE_SUCCESS = 'EDITPROFILE_SUCCESS';
 export const EDITPROFILE_ERROR = 'EDITPROFILE_ERROR';
 
+export const SHOW_DELETEPROFILE_DIALOG = 'SHOW_DELETEPROFILE_DIALOG';
+export const HIDE_DELETEPROFILE_DIALOG = 'HIDE_DELETEPROFILE_DIALOG';
+export const DELETEPROFILE_PENDING = 'DELETEPROFILE_PENDING';
+export const DELETEPROFILE_SUCCESS = 'DELETEPROFILE_SUCCESS';
+export const DELETEPROFILE_ERROR = 'DELETEPROFILE_ERROR';
+
 export function getShowEditProfileDialogAction() {
     return {
         type: SHOW_EDITPROFILE_DIALOG
@@ -105,6 +111,79 @@ function handleEditProfileResponse(response) {
             return Promise.reject(error);
         } else {
             return data;
+        }
+    });
+}
+
+export function getShowDeleteProfileDialogAction() {
+    return {
+        type: SHOW_DELETEPROFILE_DIALOG
+    }
+}
+
+export function getHideDeleteProfileDialogAction() {
+    return {
+        type: HIDE_DELETEPROFILE_DIALOG
+    }
+}
+
+export function getDeleteProfilePendingAction() {
+    return {
+        type: DELETEPROFILE_PENDING
+    }
+}
+
+export function getDeleteProfileSuccessAction() {
+    return {
+        type: DELETEPROFILE_SUCCESS
+    }
+}
+
+export function getDeleteProfileErrorAction(error) {
+    return {
+        type: DELETEPROFILE_ERROR,
+        error: error
+    }
+}
+
+export function deleteProfile(userID, token) {
+    return dispatch => {
+        dispatch(getDeleteProfilePendingAction());
+        deleteProfileStep(userID, token)
+            .then(
+                () => {
+                    dispatch(getHideDeleteProfileDialogAction());
+                    dispatch(getDeleteProfileSuccessAction());
+                },
+                error => {
+                    dispatch(getDeleteProfileErrorAction(error));
+                }
+            )
+            .catch(error => {
+                dispatch(getDeleteProfileErrorAction(error));
+            });
+    }
+}
+
+function deleteProfileStep(userID, token) {
+    const url = 'https://localhost:8080/users/' + userID;
+    const requestOptions = {
+        method: 'DELETE',
+        headers: {
+            'Authorization': "Bearer " + token
+        }
+    };
+
+    return fetch(url, requestOptions)
+        .then(handleDeleteProfileResponse)
+}
+
+function handleDeleteProfileResponse(response) {
+    return response.text().then(text => {
+        const data = text && JSON.parse(text);
+        if (!response.ok) {
+            const error = (data && data.message) || response.statusText;
+            return Promise.reject(error);
         }
     });
 }

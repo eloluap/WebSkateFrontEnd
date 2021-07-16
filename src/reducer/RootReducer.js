@@ -26,7 +26,9 @@ const initialState = {
     showEditCommentDialog: false,
     editCommentPending: false,
     showEditProfileDialog: false,
-    editProfilePending: false
+    editProfilePending: false,
+    showDeleteProfileDialog: false,
+    deleteProfilePending: false
 };
 
 function rootReducer(state = initialState, action) {
@@ -356,6 +358,37 @@ function rootReducer(state = initialState, action) {
             return {
                 ...state,
                 editProfilePending: false,
+                error: action.error
+            };
+        case userActions.SHOW_DELETEPROFILE_DIALOG:
+            return {
+                ...state,
+                showDeleteProfileDialog: true,
+                error: null
+            };
+        case userActions.HIDE_DELETEPROFILE_DIALOG:
+            return {
+                ...state,
+                showDeleteProfileDialog: false,
+                error: null
+            };
+        case userActions.DELETEPROFILE_PENDING:
+            return {
+                ...state,
+                deleteProfilePending: true,
+                error: null
+            };
+        case userActions.DELETEPROFILE_SUCCESS:
+            return {
+                ...state,
+                deleteProfilePending: false,
+                user: null,
+                accessToken: null
+            };
+        case userActions.DELETEPROFILE_ERROR:
+            return {
+                ...state,
+                deleteProfilePending: false,
                 error: action.error
             };
         default:

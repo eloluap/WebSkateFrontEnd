@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux';
 import EditProfileWidget from './EditProfileWidget';
+import DeleteProfileWidget from './DeleteProfileWidget';
+import { Redirect } from "react-router";
 
 const mapStateToProps = state => {
     return state;
@@ -9,6 +11,10 @@ const mapStateToProps = state => {
 class ProfilePage extends Component {
     render() {
         var editUser = <div className="textSize48">Bitte melden sie sich an!</div>;
+        if (!this.props.user) {
+            console.log("redirect");
+            return <Redirect to='/' />;
+        }
         if (this.props.user !== undefined && this.props.user !== null) {
             editUser = <div className="yourData borderAlmostBlack">
                 <div className="textSize48">
@@ -24,6 +30,7 @@ class ProfilePage extends Component {
                     Aktueller Nutzername: {this.props.user.userName}
                 </div>
                 <EditProfileWidget />
+                <DeleteProfileWidget />
             </div>
         }
         return (
