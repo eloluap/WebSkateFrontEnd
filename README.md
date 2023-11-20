@@ -1,4 +1,8 @@
-# Getting Started with Create React App
+### Frontend for a Skate Web Site with a Forum
+
+This was created during the Web 2 course and will now serve as the frontend for the site I use for my bachelorthesis.
+
+## Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
