@@ -248,3 +248,30 @@
         width: 30%;
     }
 }
+
+.aiInputWrapper {
+    width: 50%;
+    margin: 2% 1% 2% 49%;
+}
+
+.aiInput {
+    display: grid;
+    grid-template-columns: 80% 19%;
+    grid-template-rows: 100%;
+    grid-template-areas: 
+        "contentField button"
+        "error error";
+    column-gap: 1%;
+}
+
+.aiInputContent {
+    grid-area: contentField;    
+}
+
+.aiInputButton {
+    grid-area: button;
+}
+
+.aiInputError {
+    grid-area: error;
+}

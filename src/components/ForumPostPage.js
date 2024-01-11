@@ -8,6 +8,7 @@ import Comment from './Comment';
 import EditPostWidget from "./EditPostWidget";
 import DeletePostWidget from "./DeletePostWidget";
 import CreateComment from './CreateComment';
+import ForumAIInput from "./ForumAIInput";
 
 const mapStateToProps = state => {
     return state;
@@ -137,6 +138,7 @@ class ForumPostPage extends Component {
                         {commentList}
                     </div>
                 </div>
+                {this.props.user && <ForumAIInput />}
             </div>
         )
     }

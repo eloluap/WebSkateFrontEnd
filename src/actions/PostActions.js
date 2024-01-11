@@ -682,3 +682,29 @@ function handleEditCommentResponse(response) {
         }
     });
 }
+
+export function sendAIInputAction(postID, content, token) {
+    console.log("Send AI Input to AI");
+
+    return dispatch => {
+        // PostId is -1 if no Post is open
+        console.log("PostID: " + postID);
+        console.log("Content: " + content);
+        console.log("Token: " + token);
+        /* dispatch(getCreateCommentPendingAction()); */
+        /* createComment(postID, content, token)
+            .then(
+                () => {
+                    dispatch(getCreateCommentSuccessAction());
+                    dispatch(getCommentList(postID));
+                },
+                error => {
+                    dispatch(getCreateCommentErrorAction(error));
+                }
+            )
+            .catch(error => {
+                dispatch(getCreateCommentErrorAction(error));
+            }); */
+        // TODO: Connect to AI
+    }
+}

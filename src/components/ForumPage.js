@@ -7,6 +7,7 @@ import * as postActions from '../actions/PostActions';
 
 import ForumPostSmall from './ForumPostSmall';
 import CreatePost from './CreatePost';
+import ForumAIInput from "./ForumAIInput";
 
 const mapStateToProps = state => {
     return state;
@@ -35,6 +36,7 @@ class ForumPage extends Component {
                 {this.props.user && <CreatePost />}
                 {this.props.loadPostsPending && <div className="textWhite"><Spinner animation="border" className="spinner-border-sm mr-2" variant="primary" />Loading Posts...</div>}
                 {postList}
+                {this.props.user && <ForumAIInput />}
             </div>
         )
     }
