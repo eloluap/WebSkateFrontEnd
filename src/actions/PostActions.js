@@ -18,6 +18,10 @@ export const CREATECOMMENT_PENDING = 'CREATECOMMENT_PENDING';
 export const CREATECOMMENT_SUCCESS = 'CREATECOMMENT_SUCCESS';
 export const CREATECOMMENT_ERROR = 'CREATECOMMENT_ERROR';
 
+export const SENDAIINPUT_PENDING = 'SENDAIINPUT_PENDING';
+export const SENDAIINPUT_SUCCESS = 'SENDAIINPUT_SUCCESS';
+export const SENDAIINPUT_ERROR = 'SENDAIINPUT_ERROR';
+
 export const SHOW_EDITPOST_DIALOG = 'SHOW_EDITPOST_DIALOG';
 export const HIDE_EDITPOST_DIALOG = 'HIDE_EDITPOST_DIALOG';
 export const EDITPOST_PENDING = 'EDITPOST_PENDING';
@@ -683,28 +687,83 @@ function handleEditCommentResponse(response) {
     });
 }
 
+export function getSendAiInputPendingAction() {
+    return {
+        type: SENDAIINPUT_PENDING
+    }
+}
+
+export function getSendAiInputSuccessAction() {
+    return {
+        type: SENDAIINPUT_SUCCESS
+    }
+}
+
+export function getSendAiInputErrorAction(error) {
+    return {
+        type: SENDAIINPUT_ERROR,
+        error: error
+    }
+}
+
 export function sendAIInputAction(postID, content, token) {
-    console.log("Send AI Input to AI");
+    console.log("Send Input to AI");
 
     return dispatch => {
-        // PostId is -1 if no Post is open
-        console.log("PostID: " + postID);
-        console.log("Content: " + content);
-        console.log("Token: " + token);
-        /* dispatch(getCreateCommentPendingAction()); */
-        /* createComment(postID, content, token)
+        dispatch(getSendAiInputPendingAction());
+        sendAIInput(postID, content, token)
             .then(
                 () => {
-                    dispatch(getCreateCommentSuccessAction());
-                    dispatch(getCommentList(postID));
+                    dispatch(getSendAiInputSuccessAction());
+                    // TODO: Logic for API Call after parsing etc
+                    // dispatch(getCommentList(postID));
                 },
                 error => {
-                    dispatch(getCreateCommentErrorAction(error));
+                    dispatch(getSendAiInputErrorAction(error));
                 }
             )
             .catch(error => {
-                dispatch(getCreateCommentErrorAction(error));
-            }); */
-        // TODO: Connect to AI
+                dispatch(getSendAiInputErrorAction(error));
+            });
     }
+}
+
+// Maybe Later go the route with dispatch for Pending Actions etc
+function sendAIInput(postID, content, token) {
+    // PostId is -1 if no Post is open
+    console.log("PostID: " + postID);
+    console.log("Content: " + content);
+    console.log("Token: " + token);
+    console.log("Send AI Input to AI");
+    // TODO: Connect to AI
+
+    const url = 'https://localhost:8080/ai/';
+    const requestOptions = {
+        method: 'POST',
+        headers: {
+            'Authorization': "Bearer " + token,
+            'Content-Type': "application/json"
+        },
+        body: JSON.stringify({
+            userInput: {
+                content: content,
+                postID: postID
+            }
+        })
+    };
+
+    return fetch(url, requestOptions)
+        .then(handleSendAiInputResponse)
+
+}
+
+function handleSendAiInputResponse(response) {
+    console.log("After AI Call: " + response);
+    return response.text().then(text => {
+        const data = text && JSON.parse(text);
+        if (!response.ok) {
+            const error = (data && data.message) || response.statusText;
+            return Promise.reject(error);
+        }
+    });
 }
