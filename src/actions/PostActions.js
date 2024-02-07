@@ -706,17 +706,30 @@ export function getSendAiInputErrorAction(error) {
     }
 }
 
-export function sendAIInputAction(postID, content, token) {
+export function sendAIInputAction(postID, content, token, history) {
     console.log("Send Input to AI");
 
     return dispatch => {
         dispatch(getSendAiInputPendingAction());
         sendAIInput(postID, content, token)
             .then(
-                () => {
+                response => {
                     dispatch(getSendAiInputSuccessAction());
                     // TODO: Logic for API Call after parsing etc
-                    // dispatch(getCommentList(postID));
+                    // Depending on the call specified in the response decide which api call to do
+                    switch (response.call) {
+                        case "GET_post":
+                            // Change the site to response.body.postID
+                            history.push("/Forum/" + response.body.postID);
+                            break;
+                        case "POST_post":
+                            // Dispatch Create Post
+                            dispatch(createPostAction(response.body.title, response.body.text, token));
+                            break;
+                        default:
+                            console.log("The requested call in the response doesn't exist")
+                            break;
+                    }
                 },
                 error => {
                     dispatch(getSendAiInputErrorAction(error));
@@ -754,16 +767,21 @@ function sendAIInput(postID, content, token) {
 
     return fetch(url, requestOptions)
         .then(handleSendAiInputResponse)
+        .then(response => {
+            return response;
+        });
 
 }
 
 function handleSendAiInputResponse(response) {
-    console.log("After AI Call: " + response);
     return response.text().then(text => {
         const data = text && JSON.parse(text);
+        console.log("The AI Response: " + JSON.stringify(data));
         if (!response.ok) {
             const error = (data && data.message) || response.statusText;
             return Promise.reject(error);
+        } else {
+            return data;
         }
     });
 }

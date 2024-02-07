@@ -6,6 +6,7 @@ import Spinner from 'react-bootstrap/Spinner';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { withRouter } from 'react-router-dom';
 
 import * as postActions from '../actions/PostActions';
 
@@ -37,7 +38,8 @@ class ForumAIInput extends Component {
             postID = this.props.activePost.postID;
         }
         if (contentField !== '') {
-            sendAIInput(postID, contentField, this.props.accessToken);
+            const history = this.props.history;
+            sendAIInput(postID, contentField, this.props.accessToken, history);
             var aiInputForm = document.getElementsByName('aiInputForm')[0];
             aiInputForm.reset();
             this.setState({ contentField: '', localError: '' });
@@ -45,7 +47,6 @@ class ForumAIInput extends Component {
         } else {
             this.setState({ localError: 'Bitte das Feld ausfüllen.' });
         }
-        // TODO: Send to AI in sendAIInputAction
     }
 
     render() {
@@ -76,7 +77,7 @@ class ForumAIInput extends Component {
                     </Form>
                 </div>
             </div>
-        // TODO: Make Input Field Bigger
+            // TODO: Make Input Field Bigger
         )
     }
 }
@@ -85,4 +86,4 @@ const mapDispatchToProps = dispatch => bindActionCreators({
     sendAIInput: postActions.sendAIInputAction
 }, dispatch);
 
-export default connect(mapStateToProps, mapDispatchToProps)(ForumAIInput);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ForumAIInput));
