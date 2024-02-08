@@ -726,6 +726,26 @@ export function sendAIInputAction(postID, content, token, history) {
                             // Dispatch Create Post
                             dispatch(createPostAction(response.body.title, response.body.text, token));
                             break;
+                        case "PUT_post":
+                            // Dispatch Update Post
+                            dispatch(editPostSelf(postID, response.body.title, response.body.text, token));
+                            break;
+                        case "DELETE_post":
+                            // Dispatch Delete Post
+                            dispatch(deletePost(postID, token));
+                            break;
+                        case "POST_comment":
+                            // Dispatch Create Comment
+                            dispatch(createCommentAction(postID, response.body.text, token));
+                            break;
+                        case "PUT_comment":
+                            // Dispatch Update Comment
+                            dispatch(editCommentSelf(postID, response.body.commentID, response.body.text, token));
+                            break;
+                        case "DELETE_comment":
+                            // Dispatch Delete Comment
+                            dispatch(deleteComment(postID, response.body.commentID, token));
+                            break;
                         default:
                             console.log("The requested call in the response doesn't exist")
                             break;
@@ -744,12 +764,6 @@ export function sendAIInputAction(postID, content, token, history) {
 // Maybe Later go the route with dispatch for Pending Actions etc
 function sendAIInput(postID, content, token) {
     // PostId is -1 if no Post is open
-    console.log("PostID: " + postID);
-    console.log("Content: " + content);
-    console.log("Token: " + token);
-    console.log("Send AI Input to AI");
-    // TODO: Connect to AI
-
     const url = 'https://localhost:8080/ai/';
     const requestOptions = {
         method: 'POST',

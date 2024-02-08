@@ -43,7 +43,6 @@ class ForumAIInput extends Component {
             var aiInputForm = document.getElementsByName('aiInputForm')[0];
             aiInputForm.reset();
             this.setState({ contentField: '', localError: '' });
-            console.log("Sent Content to AI");
         } else {
             this.setState({ localError: 'Bitte das Feld ausfüllen.' });
         }
