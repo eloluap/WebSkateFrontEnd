@@ -76,7 +76,6 @@ class ForumAIInput extends Component {
                     </Form>
                 </div>
             </div>
-            // TODO: Make Input Field Bigger
         )
     }
 }

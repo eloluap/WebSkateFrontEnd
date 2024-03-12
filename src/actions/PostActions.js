@@ -715,7 +715,6 @@ export function sendAIInputAction(postID, content, token, history) {
             .then(
                 response => {
                     dispatch(getSendAiInputSuccessAction());
-                    // TODO: Logic for API Call after parsing etc
                     // Depending on the call specified in the response decide which api call to do
                     switch (response.call) {
                         case "GET_post":
